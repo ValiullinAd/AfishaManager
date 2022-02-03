@@ -17,29 +17,30 @@ public class ManagerTest {
     Movie eight = new Movie(8, 24, "Octa", 4);
     Movie nine = new Movie(9, 13, "Deviat'", 1);
     Movie ten = new Movie(10, 25, "X", 2);
-    Movie tenOne = new Movie(11, 63, "Odinadsat'", 3);
-    Movie tenTwo = new Movie(12, 47, "Dvenadsat'", 4);
-    Movie tenTenOne = new Movie(21, 21,"Dvadcat' odbIH",32);
+    //    Movie tenOne = new Movie(11, 63, "Odinadsat'", 3);
+//    Movie tenTwo = new Movie(12, 47, "Dvenadsat'", 4);
+    Movie tenTenOne = new Movie(21, 21, "Dvadcat' odbIH", 32);
 
     @Test
-        public void shouldRemoveIfExists() {
-            Manager manager = new Manager(3);
-            int idToRemove = 1;
-            manager.save(one);
-            manager.save(two);
-            manager.save(three);
+    public void shouldRemoveIfExists() {
+        Manager manager = new Manager(3);
+        int idToRemove = 1;
+        manager.save(one);
+        manager.save(two);
+        manager.save(three);
 
-            manager.removeById(idToRemove);
+        manager.removeById(idToRemove);
 
-            Movie[] actual = manager.getAll();
-            Movie[] expected = new Movie[]{three, two};
+        Movie[] actual = manager.getAll();
+        Movie[] expected = new Movie[]{three, two};
 
 //    assertEquals(expected, actual);
-            assertArrayEquals(expected, actual);
-        }
+        assertArrayEquals(expected, actual);
+    }
+
     @Test
     public void shouldShowAll() {
-        Manager manager = new Manager();
+        Movie[] expected = new Movie[]{ten, nine, eight, seven, six, five, four, three, two, one};
         manager.save(one);
         manager.save(two);
         manager.save(three);
@@ -51,11 +52,9 @@ public class ManagerTest {
         manager.save(nine);
         manager.save(ten);
 
-        Movie[] actual = manager.listMovies();
-        Movie[] expected = new Movie[]{ten, nine, eight, seven, six, five, four, three, two, one};
-
-        assertArrayEquals(expected, actual);
+        assertArrayEquals(expected, manager.getAll());
     }
+
     @Test
     void shouldReturnLastIfMoviesReturnSix() {
         Manager manager = new Manager(6);
@@ -67,6 +66,7 @@ public class ManagerTest {
 
         assertArrayEquals(expected, actual);
     }
+
     @Test
     void shouldDownZero() {
         Manager manager = new Manager(-4);
@@ -79,5 +79,34 @@ public class ManagerTest {
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    void shouldUpInitial() {
+        Manager manager = new Manager(40);
+        Movie[] expected = new Movie[]{three, two, one};
+        manager.save(one);
+        manager.save(two);
+        manager.save(three);
+        Movie[] actual = manager.listMovies();
 
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldUpInitialAgain() {
+        Manager manager = new Manager(11);
+        Movie[] expected = new Movie[]{tenTenOne, ten, nine, eight, seven, six, five, four, three, two, one};
+        manager.save(one);
+        manager.save(two);
+        manager.save(three);
+        manager.save(four);
+        manager.save(five);
+        manager.save(six);
+        manager.save(seven);
+        manager.save(eight);
+        manager.save(nine);
+        manager.save(ten);
+        manager.save(tenTenOne);
+
+        assertArrayEquals(expected, manager.listMovies());
+    }
 }
