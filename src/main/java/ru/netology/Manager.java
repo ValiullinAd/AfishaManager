@@ -4,9 +4,10 @@ public class Manager {
 
     private Movie[] items = new Movie[0];
     private int moviesShow;
+    private int initialMoviesShow = 10;
 
     public Manager(int moviesShow){
-        this.moviesShow = 10;
+        this.moviesShow = moviesShow;
     }
 
     public Manager() {
@@ -47,10 +48,11 @@ public class Manager {
         items = tmp;
     }
     public Movie[] listMovies() {
+
         int resultLength;
 
         if (moviesShow <= 0)
-            moviesShow = 10;
+            moviesShow = initialMoviesShow;
         resultLength = moviesShow;
 
         if (moviesShow > items.length) {
